@@ -1,14 +1,12 @@
-package ru.vsu.services;
+package ru.vsu.services.adapters;
 
 import ru.vsu.items.Item;
-import ru.vsu.repository.Repository;
-import ru.vsu.repository.Warehouse;
+import ru.vsu.services.builders.ItemFromCLIBuilder;
 
 import java.util.*;
 
 public class WarehouseCLIAdapter {
 
-    private final Repository repository = Warehouse.getInstance();
     private final Scanner scn = new Scanner(System.in);
 
     public void addItem() {

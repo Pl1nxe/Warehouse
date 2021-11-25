@@ -1,4 +1,4 @@
-package ru.vsu.services;
+package ru.vsu.services.adapters;
 
 public class OrderCLIAdapter {
 

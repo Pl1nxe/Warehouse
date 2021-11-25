@@ -1,4 +1,4 @@
-package ru.vsu.services;
+package ru.vsu.services.builders;
 
 import ru.vsu.items.Beam;
 import ru.vsu.items.Fitting;

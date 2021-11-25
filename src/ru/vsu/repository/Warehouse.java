@@ -6,26 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse implements Repository {
-    private static Warehouse INSTANCE;
     private final List<Item> items;
+    private int number;
+    private String address;
 
-    private Warehouse(){
+    public Warehouse(int number, String address) {
         items = new ArrayList<>();
-    }
-
-    public static Warehouse getInstance(){
-        if (INSTANCE == null) INSTANCE = new Warehouse();
-        return INSTANCE;
+        this.address = address;
+        this.number = number;
     }
 
     @Override
-    public List<Item> getAll() {
+    public List<Stored> getAll() {
         return new ArrayList<>(items);
     }
 
     @Override
     public void add(Stored item) {
-        items.add(item);
+        try {
+            items.add((Item) item);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -35,8 +37,12 @@ public class Warehouse implements Repository {
 
     @Override
     public void replaceAll(Stored existing, Stored toReplace) {
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i) == existing) items.set(i, toReplace);
+        try {
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i) == existing) items.set(i, (Item) toReplace);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 }

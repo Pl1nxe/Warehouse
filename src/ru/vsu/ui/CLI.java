@@ -1,6 +1,6 @@
 package ru.vsu.ui;
 
-import ru.vsu.services.WarehouseCLIAdapter;
+import ru.vsu.services.adapters.WarehouseCLIAdapter;
 
 import java.util.Scanner;
 

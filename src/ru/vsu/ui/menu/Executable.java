@@ -1,6 +1,8 @@
 package ru.vsu.ui.menu;
 
-import ru.vsu.services.*;
+import ru.vsu.services.adapters.ClienteleCLIAdapter;
+import ru.vsu.services.adapters.OrderCLIAdapter;
+import ru.vsu.services.adapters.WarehouseCLIAdapter;
 
 public interface Executable {
 
