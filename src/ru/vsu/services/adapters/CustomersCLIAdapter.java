@@ -20,7 +20,7 @@ public class CustomersCLIAdapter implements Adapter {
     public void removeByID() {
         System.out.print("Enter customer ITN: ");
         Integer num = scn.nextInt();
-        Clientele.getInstance().deleteByIndex(num);
+        Clientele.getInstance().removeByID(num);
     }
 
     @Override

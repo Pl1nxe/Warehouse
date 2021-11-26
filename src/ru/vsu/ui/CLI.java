@@ -1,34 +1,38 @@
 package ru.vsu.ui;
 
 import ru.vsu.services.adapters.WarehousesCLIAdapter;
-import ru.vsu.ui.menu.Executable;
+import ru.vsu.ui.menu.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class CLI implements UI{
 
     private boolean runnable = true;
     private final WarehousesCLIAdapter repositoryCLIAdapter = new WarehousesCLIAdapter();
-    private Map<Integer, ? extends Executable> menu;
+    private List<Executable> menu = new ArrayList<>();
 
     public CLI() {
-        List<Class<? extends Executable>> ClassList = new ArrayList<Class<? extends Executable>>();
-
+        menu.add(new AddWarehouse());
+        menu.add(new AddItem());
+        menu.add(new AddCustomer());
+        menu.add(new MakeOrder());
+        menu.add(new ViewWarehouses());
+        menu.add(new ViewItems());
+        menu.add(new ViewClientele());
+        menu.add(new ViewOrders());
+        menu.add(new RemoveWarehouse());
+        menu.add(new RemoveItem());
+        menu.add(new RemoveCustomer());
+        menu.add(new RemoveOrder());
     }
 
     @Override
     public void run() {
         Scanner scn = new Scanner(System.in);
         while (runnable) {
-            System.out.println("""
-        Menu:
-        1. Add Items
-        2. Remove item
-        3. View items in stock
-        4. Exit""");
+            printMenu();
             try {
                 runnable = execute(Integer.parseInt(scn.nextLine()));
             } catch (NumberFormatException e) {
@@ -38,17 +42,22 @@ public class CLI implements UI{
     }
 
     private boolean execute(int n) {
-        switch (n) {
-            case 1 -> repositoryCLIAdapter.add();
-            case 2 -> repositoryCLIAdapter.removeItems();
-            case 3 -> repositoryCLIAdapter.viewStock();
-            case 4 -> {
-                return false;
-            }
-            default -> System.out.println("Incorrect operation");
+        n--;
+        if (n == menu.size())
+            return false;
+        else if (n >= 0 && n < menu.size()) {
+            menu.get(n).execute();
+            return true;
         }
+        System.out.println("Incorrect operation");
         return true;
     }
-    // pattern команды
+
+    private void printMenu() {
+        System.out.print("\nMenu:\n");
+        for (int i = 0; i < menu.size(); i++)
+            menu.get(i).print(i + 1);
+        System.out.printf("%s. Exit\n", menu.size() + 1);
+    }
 
 }

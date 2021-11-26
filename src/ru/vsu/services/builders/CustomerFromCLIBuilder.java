@@ -28,7 +28,8 @@ public class CustomerFromCLIBuilder {
     }
 
     public static LegalPerson createLegalPerson() {
-        return new LegalPerson(nameOfOrganization(), personalTaxNumber(), address());
+        String nameOfOrganization = nameOfOrganization();
+        return new LegalPerson(nameOfOrganization, personalTaxNumber(), address());
     }
 
     public static PrivatePerson createPrivatePerson() {
@@ -36,7 +37,7 @@ public class CustomerFromCLIBuilder {
     }
 
     private static String nameOfOrganization() {
-        System.out.print("Name of organization: ");
+        System.out.println("Name of organization: ");
         return scn.nextLine();
     }
 

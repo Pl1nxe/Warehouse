@@ -20,7 +20,7 @@ public class OrdersCLIAdapter implements Adapter {
     public void removeByID() {
         System.out.print("Enter number of order: ");
         Integer num = scn.nextInt();
-        HandlerOfOrders.getInstance().deleteByIndex(num);
+        HandlerOfOrders.getInstance().removeByID(num);
     }
 
     @Override

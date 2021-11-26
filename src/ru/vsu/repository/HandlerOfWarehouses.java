@@ -55,6 +55,11 @@ public class HandlerOfWarehouses implements Repository {
     }
 
     @Override
+    public void removeByID(Integer id) {
+        warehouses.remove(getElementByID(id));
+    }
+
+    @Override
     public void replaceAll(Stored existing, Stored toReplace) {
         try {
             for (int i = 0; i < warehouses.size(); i++) {

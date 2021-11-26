@@ -54,6 +54,11 @@ public class Warehouse implements Repository, Stored {
     }
 
     @Override
+    public void removeByID(Integer id) {
+        items.remove(getElementByID(id));
+    }
+
+    @Override
     public void replaceAll(Stored existing, Stored toReplace) {
         try {
             for (int i = 0; i < items.size(); i++) {

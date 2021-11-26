@@ -44,6 +44,11 @@ public class Clientele implements Repository {
     }
 
     @Override
+    public void removeByID(Integer id) {
+        customers.remove(getElementByID(id));
+    }
+
+    @Override
     public void replaceAll(Stored existing, Stored toReplace) {
         try {
             for (int i = 0; i < customers.size(); i++) {

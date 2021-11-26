@@ -21,7 +21,7 @@ public class WarehousesCLIAdapter implements Adapter {
     public void removeByID() {
         System.out.print("Enter warehouse number: ");
         Integer num = scn.nextInt();
-        HandlerOfWarehouses.getInstance().deleteByIndex(num);
+        HandlerOfWarehouses.getInstance().removeByID(num);
     }
 
     @Override

@@ -10,6 +10,8 @@ public interface Repository {
 
     void deleteByIndex(int index);
 
+    void removeByID(Integer id);
+
     void replaceAll(Stored existing, Stored toReplace);
 
 }

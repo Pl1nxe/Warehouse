@@ -45,6 +45,11 @@ public class HandlerOfOrders implements Repository {
     }
 
     @Override
+    public void removeByID(Integer id) {
+        orders.remove(getElementByID(id));
+    }
+
+    @Override
     public void replaceAll(Stored existing, Stored toReplace) {
         try {
             for (int i = 0; i < orders.size(); i++) {
