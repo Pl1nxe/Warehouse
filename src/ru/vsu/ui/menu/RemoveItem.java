@@ -9,6 +9,6 @@ public class RemoveItem implements Executable {
 
     @Override
     public void execute() {
-        repositoryCLIAdapter.removeItems();
+        warehousesCLIAdapter.removeByID();
     }
 }

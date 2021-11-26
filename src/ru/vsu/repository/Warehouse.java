@@ -4,16 +4,29 @@ import ru.vsu.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Warehouse implements Repository {
+public class Warehouse implements Repository, Stored {
     private final List<Item> items;
-    private int number;
+    private Integer number;
     private String address;
 
-    public Warehouse(int number, String address) {
+    public Warehouse(Integer number, String address) {
         items = new ArrayList<>();
         this.address = address;
         this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return "Warehouse{" +
+                "number='" + number + '\'' +
+                ", address='" + address + '}';
+    }
+
+    @Override
+    public Integer getID() {
+        return number;
     }
 
     @Override
@@ -32,7 +45,12 @@ public class Warehouse implements Repository {
 
     @Override
     public void deleteByIndex(int index) {
-        items.remove(index);
+        try {
+            items.remove(index);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
     @Override
@@ -44,5 +62,14 @@ public class Warehouse implements Repository {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    private Item getElementByID(Integer id) {
+        return items.stream().filter(var -> var.getID().equals(id)).collect(Collectors.toList()).get(0);
+    }
+
+    public Item findByID(Integer id) {
+        List<Item> item = items.stream().filter(var -> var.getID().equals(id)).collect(Collectors.toList());
+        return (Item) item.get(0);
     }
 }

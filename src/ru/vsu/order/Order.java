@@ -10,11 +10,18 @@ public class Order implements Stored {
 
     private Integer referenceNumber;
     private Customer customer;
+    private String date;
     private List<Item> items;
 
-    public Order(Integer referenceNumber, Customer customer) {
+    public Order(Integer referenceNumber, Customer customer, String date) {
         this.referenceNumber = referenceNumber;
         this.customer = customer;
+        this.date = date;
+    }
+
+    @Override
+    public Integer getID() {
+        return referenceNumber;
     }
 
     public void addItem(Item item) {

@@ -1,13 +1,23 @@
 package ru.vsu.ui;
 
-import ru.vsu.services.adapters.WarehouseCLIAdapter;
+import ru.vsu.services.adapters.WarehousesCLIAdapter;
+import ru.vsu.ui.menu.Executable;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CLI implements UI{
 
     private boolean runnable = true;
-    private final WarehouseCLIAdapter repositoryCLIAdapter = new WarehouseCLIAdapter();
+    private final WarehousesCLIAdapter repositoryCLIAdapter = new WarehousesCLIAdapter();
+    private Map<Integer, ? extends Executable> menu;
+
+    public CLI() {
+        List<Class<? extends Executable>> ClassList = new ArrayList<Class<? extends Executable>>();
+
+    }
 
     @Override
     public void run() {
@@ -29,7 +39,7 @@ public class CLI implements UI{
 
     private boolean execute(int n) {
         switch (n) {
-            case 1 -> repositoryCLIAdapter.addItem();
+            case 1 -> repositoryCLIAdapter.add();
             case 2 -> repositoryCLIAdapter.removeItems();
             case 3 -> repositoryCLIAdapter.viewStock();
             case 4 -> {
@@ -40,4 +50,5 @@ public class CLI implements UI{
         return true;
     }
     // pattern команды
+
 }

@@ -4,8 +4,8 @@ public class Fitting extends Item {
 
     private Integer length, thickness;
 
-    public Fitting(String title, String manufacturer, Integer price, Integer length, Integer thickness) {
-        super(title, manufacturer, price);
+    public Fitting(Integer articleNum, String title, String manufacturer, Integer price, Integer length, Integer thickness) {
+        super(articleNum, title, manufacturer, price);
         this.thickness = thickness;
         this.length = length;
     }

@@ -1,6 +1,6 @@
 package ru.vsu.ui.menu;
 
-public class ViewStock implements Executable {
+public class ViewItems implements Executable {
 
     @Override
     public void print(int a) {
@@ -9,6 +9,6 @@ public class ViewStock implements Executable {
 
     @Override
     public void execute() {
-        repositoryCLIAdapter.viewStock();
+        warehousesCLIAdapter.viewList();
     }
 }

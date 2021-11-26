@@ -9,6 +9,6 @@ public class RemoveOrder implements Executable {
 
     @Override
     public void execute() {
-
+        orderCLIAdapter.removeByID();
     }
 }

@@ -9,7 +9,7 @@ public class MakeOrder implements Executable {
 
     @Override
     public void execute() {
-
+        orderCLIAdapter.add();
     }
 
 }

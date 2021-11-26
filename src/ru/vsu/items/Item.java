@@ -3,20 +3,26 @@ package ru.vsu.items;
 import ru.vsu.repository.Stored;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Item implements Stored {
 
     protected String title, manufacturer;
     protected Integer price, articleNum;
-    private AtomicInteger articleGenerator = new AtomicInteger(0);
+//    private AtomicInteger articleGenerator = new AtomicInteger(0);
 
 
-    public Item(String title, String manufacturer, Integer price) {
+    public Item(Integer articleNum, String title, String manufacturer, Integer price) {
         this.title = title;
         this.manufacturer = manufacturer;
         this.price = price;
-        articleNum = articleGenerator.getAndIncrement();
+//        articleNum = articleGenerator.getAndIncrement();
+
+        this.articleNum = articleNum;
+    }
+
+    @Override
+    public Integer getID() {
+        return articleNum;
     }
 
     @Override

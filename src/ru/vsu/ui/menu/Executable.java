@@ -1,14 +1,16 @@
 package ru.vsu.ui.menu;
 
-import ru.vsu.services.adapters.ClienteleCLIAdapter;
-import ru.vsu.services.adapters.OrderCLIAdapter;
-import ru.vsu.services.adapters.WarehouseCLIAdapter;
+import ru.vsu.services.adapters.CustomersCLIAdapter;
+import ru.vsu.services.adapters.ItemsCLIAdapter;
+import ru.vsu.services.adapters.OrdersCLIAdapter;
+import ru.vsu.services.adapters.WarehousesCLIAdapter;
 
 public interface Executable {
 
-    WarehouseCLIAdapter repositoryCLIAdapter = new WarehouseCLIAdapter();
-    ClienteleCLIAdapter clienteleCLIAdapter = new ClienteleCLIAdapter();
-    OrderCLIAdapter orderCLIAdapter = new OrderCLIAdapter();
+    WarehousesCLIAdapter warehousesCLIAdapter = new WarehousesCLIAdapter();
+    CustomersCLIAdapter clienteleCLIAdapter = new CustomersCLIAdapter();
+    OrdersCLIAdapter orderCLIAdapter = new OrdersCLIAdapter();
+    ItemsCLIAdapter itemCLIAdapter = new ItemsCLIAdapter();
 
     void print(int a);
 

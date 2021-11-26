@@ -9,6 +9,6 @@ public class AddItem implements Executable {
 
     @Override
     public void execute() {
-        repositoryCLIAdapter.addItem();
+        warehousesCLIAdapter.add();
     }
 }

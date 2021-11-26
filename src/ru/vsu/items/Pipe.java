@@ -5,8 +5,8 @@ public class Pipe extends Item {
     private Integer innerDiameter, outerDiameter;
     private String material;
 
-    public Pipe(String title, String manufacturer, Integer price, Integer innerDiameter, Integer outerDiameter, String material) {
-        super(title, manufacturer, price);
+    public Pipe(Integer articleNum, String title, String manufacturer, Integer price, Integer innerDiameter, Integer outerDiameter, String material) {
+        super(articleNum, title, manufacturer, price);
         this.innerDiameter = innerDiameter;
         this.outerDiameter = outerDiameter;
         this.material = material;

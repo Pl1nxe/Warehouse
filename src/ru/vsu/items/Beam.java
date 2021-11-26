@@ -5,8 +5,8 @@ public class Beam extends Item {
     private Integer length, width, height;
     private String material;
 
-    public Beam(String title, String manufacturer, Integer price, Integer length, Integer width, Integer height, String material) {
-        super(title, manufacturer, price);
+    public Beam(Integer articleNum, String title, String manufacturer, Integer price, Integer length, Integer width, Integer height, String material) {
+        super(articleNum, title, manufacturer, price);
         this.length = length;
         this.width = width;
         this.height = height;

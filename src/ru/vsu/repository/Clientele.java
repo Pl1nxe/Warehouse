@@ -4,6 +4,7 @@ import ru.vsu.customers.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Clientele implements Repository {
 
@@ -35,7 +36,11 @@ public class Clientele implements Repository {
 
     @Override
     public void deleteByIndex(int index) {
-        customers.remove(index);
+        try {
+            customers.remove(index);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -47,5 +52,14 @@ public class Clientele implements Repository {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    private Customer getElementByID(Integer id) {
+        return customers.stream().filter(var -> var.getID().equals(id)).collect(Collectors.toList()).get(0);
+    }
+
+    public static Customer findByID(Integer id) {
+        List<Stored> customer = getInstance().getAll().stream().filter(var -> var.getID().equals(id)).collect(Collectors.toList());
+        return (Customer) customer.get(0);
     }
 }

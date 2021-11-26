@@ -2,6 +2,7 @@ package ru.vsu.services.builders;
 
 import ru.vsu.items.Beam;
 import ru.vsu.items.Fitting;
+import ru.vsu.items.Item;
 import ru.vsu.items.Pipe;
 
 import java.util.Scanner;
@@ -9,16 +10,36 @@ import java.util.Scanner;
 public class ItemFromCLIBuilder {
     private static final Scanner scn = new Scanner(System.in);
 
+    public static Item createItem() {
+        System.out.println("""
+                Choose:
+                1. Bean
+                2. Fitting
+                3. Pipe
+                """);
+        int a = scn.nextInt();
+        if (a == 1)
+            return createBeam();
+        else if (a == 2)
+            return createFitting();
+        else if (a == 3)
+            return createPipe();
+        else {
+            System.out.println("Not found command!");
+            return createItem();
+        }
+    }
+
     public static Beam createBeam() {
-        return new Beam(getTitle(), getManufacturer(), getPrice(), getLength(), getWidth(), getHeight(), getMaterial());
+        return new Beam(getArticleNum(), getTitle(), getManufacturer(), getPrice(), getLength(), getWidth(), getHeight(), getMaterial());
     }
 
     public static Fitting createFitting() {
-        return new Fitting(getTitle(), getManufacturer(), getPrice(), getLength(), getThickness());
+        return new Fitting(getArticleNum(), getTitle(), getManufacturer(), getPrice(), getLength(), getThickness());
     }
 
     public static Pipe createPipe() {
-        return new Pipe(getTitle(), getManufacturer(), getPrice(), getInnerDiameter(), getOuterDiameter(), getMaterial());
+        return new Pipe(getArticleNum(), getTitle(), getManufacturer(), getPrice(), getInnerDiameter(), getOuterDiameter(), getMaterial());
     }
 
     private static String getTitle() {
@@ -29,6 +50,11 @@ public class ItemFromCLIBuilder {
     private static String getManufacturer() {
         System.out.print("Manufacturer: ");
         return scn.nextLine();
+    }
+
+    private static Integer getArticleNum() {
+        System.out.print("Article number: ");
+        return scn.nextInt();
     }
 
     private static Integer getPrice() {
