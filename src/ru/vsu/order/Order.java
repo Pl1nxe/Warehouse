@@ -1,9 +1,10 @@
 package ru.vsu.order;
 
-import ru.vsu.customers.*;
+import ru.vsu.customers.Customer;
 import ru.vsu.items.*;
 import ru.vsu.repository.Stored;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Stored {
@@ -38,5 +39,21 @@ public class Order implements Stored {
         }
         text += '}';
         return text;
+    }
+
+    public Integer getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public List<Item> getItems() {
+        return new ArrayList<>(items);
     }
 }

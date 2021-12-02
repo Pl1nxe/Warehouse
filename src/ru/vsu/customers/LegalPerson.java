@@ -2,19 +2,19 @@ package ru.vsu.customers;
 
 public class LegalPerson extends Customer {
 
-    private String nameOfOrganization;
-
-    public LegalPerson(String nameOfOrganization, Integer personalTaxNumber, String address) {
-        super(personalTaxNumber, address);
-        this.nameOfOrganization = nameOfOrganization;
+    public LegalPerson(String nameOfOrganization, Integer individualTaxpayerNumber, String address) {
+        super(individualTaxpayerNumber, address, nameOfOrganization, null, null);
     }
 
     @Override
     public String toString() {
         return "LegalPerson{" +
                 "nameOfOrganization='" + nameOfOrganization + '\'' +
-                ", ITN='" + super.ITN + '\'' +
-                ", address='" + super.address + '}';
+                ", ITN='" + ITN + '\'' +
+                ", address='" + address + '}';
     }
 
+    public String getNameOfOrganization() {
+        return nameOfOrganization;
+    }
 }

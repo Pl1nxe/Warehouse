@@ -2,7 +2,6 @@ package ru.vsu.services.builders;
 
 
 import ru.vsu.customers.Customer;
-import ru.vsu.order.Order;
 import ru.vsu.repository.Clientele;
 
 import java.util.Scanner;
@@ -10,8 +9,8 @@ import java.util.Scanner;
 public class OrderFromCLIBuilder {
     private static final Scanner scn = new Scanner(System.in);
 
-    public static Order createOrder() {
-        return new Order(referenceNumber(), customer(), date());
+    public static ru.vsu.order.Order createOrder() {
+        return new ru.vsu.order.Order(referenceNumber(), customer(), date());
     }
 
     private static Integer referenceNumber() {

@@ -12,6 +12,8 @@ public interface Repository {
 
     void removeByID(Integer id);
 
-    void replaceAll(Stored existing, Stored toReplace);
+    void replaceElement(Stored existing, Stored toReplace);
+
+    void replaceList(List<Stored> elements);
 
 }

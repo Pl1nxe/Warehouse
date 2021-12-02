@@ -2,26 +2,37 @@ package ru.vsu.items;
 
 public class Beam extends Item {
 
-    private Integer length, width, height;
-    private String material;
-
-    public Beam(Integer articleNum, String title, String manufacturer, Integer price, Integer length, Integer width, Integer height, String material) {
-        super(articleNum, title, manufacturer, price);
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        this.material = material;
+    public Beam(Integer articleNum, String title, String manufacturer, Integer price, Integer length, Integer width,
+                Integer height, String material) {
+        super(articleNum, title, manufacturer, price, length, width, height, material,
+                null, null, null);
     }
 
     @Override
     public String toString() {
         return "Beam{" +
-                "title='" + super.title + '\'' +
-                ", manufacturer='" + super.manufacturer + '\'' +
+                "title='" + title + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
                 ", length='" + length + '\'' +
                 ", width='" + width + '\'' +
                 ", height='" + height + '\'' +
                 ", material='" + material + '\'' +
-                ", price='" + super.price + '}';
+                ", price='" + price + '}';
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public String getMaterial() {
+        return material;
     }
 }

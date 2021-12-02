@@ -16,6 +16,11 @@ public class ItemsCLIAdapter implements Adapter {
         System.out.print("Choose warehouse (number): ");
         Integer num = scn.nextInt();
         HandlerOfWarehouses.getInstance().addItem(num, item);
+
+//        db.executeSelect("INSERT INTO item (article, title, price, manufacturer) VALUES (" + item.getArticleNum()
+//                + ", `" + item.getTitle() + "`, " + item.getPrice() + ", `" + item.getManufacturer() + "`);");
+//        db.executeSelect("INSERT INTO item_in_storage (item_article, warehouse_number) VALUES ("
+//                + item.getArticleNum() + ", " + num + ");");
     }
 
     @Override
@@ -23,6 +28,9 @@ public class ItemsCLIAdapter implements Adapter {
         System.out.print("Enter item article: ");
         Integer num = scn.nextInt();
         HandlerOfWarehouses.getInstance().removeItem(num);
+
+//        db.executeSelect("DELETE FROM item WHERE article=" + num + ";");
+//        db.executeSelect("DELETE FROM item_in_storage WHERE article=" + num + ";");
     }
 
     @Override
@@ -34,4 +42,10 @@ public class ItemsCLIAdapter implements Adapter {
             System.out.println(item.toString());
         }
     }
+
+    public void viewDataBase() {
+
+    }
+
+
 }

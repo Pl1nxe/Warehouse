@@ -50,13 +50,28 @@ public class HandlerOfOrders implements Repository {
     }
 
     @Override
-    public void replaceAll(Stored existing, Stored toReplace) {
+    public void replaceElement(Stored existing, Stored toReplace) {
         try {
             for (int i = 0; i < orders.size(); i++) {
                 if (orders.get(i) == existing) orders.set(i, (Order) toReplace);
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    @Override
+    public void replaceList(List<Stored> elements) {
+        try {
+            for (Stored i : elements) {
+                Order el = getElementByID(i.getID());
+                if (el != null)
+                    el = (Order) i;
+                else
+                    orders.add((Order) i);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

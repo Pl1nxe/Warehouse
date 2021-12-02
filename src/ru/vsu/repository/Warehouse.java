@@ -59,13 +59,28 @@ public class Warehouse implements Repository, Stored {
     }
 
     @Override
-    public void replaceAll(Stored existing, Stored toReplace) {
+    public void replaceElement(Stored existing, Stored toReplace) {
         try {
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i) == existing) items.set(i, (Item) toReplace);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void replaceList(List<Stored> elements) {
+        try {
+            for (Stored i : elements) {
+                Item el = getElementByID(i.getID());
+                if (el != null)
+                    el = (Item) i;
+                else
+                    items.add((Item) i);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -74,7 +89,8 @@ public class Warehouse implements Repository, Stored {
     }
 
     public Item findByID(Integer id) {
-        List<Item> item = items.stream().filter(var -> var.getID().equals(id)).collect(Collectors.toList());
+        List<Item> item = new ArrayList<>(items.stream().filter(var -> var.getID().equals(id)).
+                collect(Collectors.toList()));
         return (Item) item.get(0);
     }
 }

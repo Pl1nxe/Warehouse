@@ -8,10 +8,20 @@ public abstract class Customer implements Stored {
 
     protected Integer ITN;
     protected String address;
+    protected String nameOfOrganization;
+    protected String fullName;
+    protected String birthDate;
 
-    public Customer(Integer individualTaxpayerNumber, String address) {
+    public Customer(Integer individualTaxpayerNumber,
+                    String address,
+                    String nameOfOrganization,
+                    String fullName,
+                    String birthDate) {
         this.address = address;
         ITN = individualTaxpayerNumber;
+        this.nameOfOrganization = nameOfOrganization;
+        this.fullName = fullName;
+        this.birthDate = birthDate;
     }
 
     @Override
@@ -30,5 +40,25 @@ public abstract class Customer implements Stored {
     @Override
     public int hashCode() {
         return Objects.hash(ITN);
+    }
+
+    public Integer getITN() {
+        return ITN;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getNameOfOrganization() {
+        return nameOfOrganization;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
     }
 }

@@ -60,13 +60,28 @@ public class HandlerOfWarehouses implements Repository {
     }
 
     @Override
-    public void replaceAll(Stored existing, Stored toReplace) {
+    public void replaceElement(Stored existing, Stored toReplace) {
         try {
             for (int i = 0; i < warehouses.size(); i++) {
                 if (warehouses.get(i) == existing) warehouses.set(i, (Warehouse) toReplace);
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    @Override
+    public void replaceList(List<Stored> elements) {
+        try {
+            for (Stored i : elements) {
+                Warehouse el = getElementByID(i.getID());
+                if (el != null)
+                    el = (Warehouse) i;
+                else
+                    warehouses.add((Warehouse) i);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

@@ -2,12 +2,8 @@ package ru.vsu.customers;
 
 public class PrivatePerson extends Customer {
 
-    private String fullName, birthDate;
-
-    public PrivatePerson(String fullName, String birthDate, Integer personalTaxNumber, String address) {
-        super(personalTaxNumber, address);
-        this.fullName = fullName;
-        this.birthDate = birthDate;
+    public PrivatePerson(String fullName, String birthDate, Integer individualTaxpayerNumber, String address) {
+        super(individualTaxpayerNumber, address, null, fullName, birthDate);
     }
 
     @Override
@@ -15,8 +11,15 @@ public class PrivatePerson extends Customer {
         return "PrivatePerson{" +
                 "fullName='" + fullName + '\'' +
                 ", birthDate='" + birthDate + '\'' +
-                ", address='" + super.address + '\'' +
-                ", ITN='" + super.ITN + '}';
+                ", address='" + address + '\'' +
+                ", ITN='" + ITN + '}';
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
 }

@@ -49,13 +49,28 @@ public class Clientele implements Repository {
     }
 
     @Override
-    public void replaceAll(Stored existing, Stored toReplace) {
+    public void replaceElement(Stored existing, Stored toReplace) {
         try {
             for (int i = 0; i < customers.size(); i++) {
                 if (customers.get(i) == existing) customers.set(i, (Customer) toReplace);
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    @Override
+    public void replaceList(List<Stored> elements) {
+        try {
+            for (Stored i : elements) {
+                Customer el = getElementByID(i.getID());
+                if (el != null)
+                    el = (Customer) i;
+                else
+                    customers.add((Customer) i);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

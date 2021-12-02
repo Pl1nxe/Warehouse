@@ -5,18 +5,25 @@ public class Fitting extends Item {
     private Integer length, thickness;
 
     public Fitting(Integer articleNum, String title, String manufacturer, Integer price, Integer length, Integer thickness) {
-        super(articleNum, title, manufacturer, price);
-        this.thickness = thickness;
-        this.length = length;
+        super(articleNum, title, manufacturer, price, length, null, null, null, thickness,
+                null, null);
     }
 
     @Override
     public String toString() {
         return "Fitting{" +
-                "title='" + super.title + '\'' +
-                ", manufacturer='" + super.manufacturer + '\'' +
+                "title='" + title + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
                 ", thickness='" + thickness + '\'' +
                 ", length='" + length + '\'' +
-                ", price='" + super.price + '}';
+                ", price='" + price + '}';
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public Integer getThickness() {
+        return thickness;
     }
 }
