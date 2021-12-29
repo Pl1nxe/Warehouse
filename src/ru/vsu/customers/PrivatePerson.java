@@ -3,20 +3,20 @@ package ru.vsu.customers;
 public class PrivatePerson extends Customer {
 
     public PrivatePerson(String fullName, String birthDate, Integer individualTaxpayerNumber, String address) {
-        super(individualTaxpayerNumber, address, null, fullName, birthDate);
+        super(individualTaxpayerNumber, address, fullName, birthDate);
     }
 
     @Override
     public String toString() {
         return "PrivatePerson{" +
-                "fullName='" + fullName + '\'' +
+                "fullName='" + name + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", address='" + address + '\'' +
                 ", ITN='" + ITN + '}';
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
     public String getBirthDate() {

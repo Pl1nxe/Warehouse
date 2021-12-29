@@ -29,6 +29,14 @@ public class Warehouse implements Repository, Stored {
         return number;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
     @Override
     public List<Stored> getAll() {
         return new ArrayList<>(items);
@@ -39,7 +47,7 @@ public class Warehouse implements Repository, Stored {
         try {
             items.add((Item) item);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -48,7 +56,7 @@ public class Warehouse implements Repository, Stored {
         try {
             items.remove(index);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
     }

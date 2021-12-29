@@ -30,7 +30,7 @@ public class Clientele implements Repository {
         try {
             customers.add((Customer) customer);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class Clientele implements Repository {
         try {
             customers.remove(index);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class Clientele implements Repository {
                 if (customers.get(i) == existing) customers.set(i, (Customer) toReplace);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 

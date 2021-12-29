@@ -40,7 +40,7 @@ public class HandlerOfWarehouses implements Repository {
         try {
             warehouses.add((Warehouse) warehouse);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -49,7 +49,7 @@ public class HandlerOfWarehouses implements Repository {
         try {
             warehouses.remove(index);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
     }

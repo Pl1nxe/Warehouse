@@ -8,19 +8,16 @@ public abstract class Customer implements Stored {
 
     protected Integer ITN;
     protected String address;
-    protected String nameOfOrganization;
-    protected String fullName;
+    protected String name;
     protected String birthDate;
 
     public Customer(Integer individualTaxpayerNumber,
                     String address,
-                    String nameOfOrganization,
-                    String fullName,
+                    String name,
                     String birthDate) {
         this.address = address;
         ITN = individualTaxpayerNumber;
-        this.nameOfOrganization = nameOfOrganization;
-        this.fullName = fullName;
+        this.name = name;
         this.birthDate = birthDate;
     }
 
@@ -50,12 +47,8 @@ public abstract class Customer implements Stored {
         return address;
     }
 
-    public String getNameOfOrganization() {
-        return nameOfOrganization;
-    }
-
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
     public String getBirthDate() {

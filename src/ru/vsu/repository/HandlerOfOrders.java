@@ -30,7 +30,7 @@ public class HandlerOfOrders implements Repository {
         try {
             orders.add((Order) order);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class HandlerOfOrders implements Repository {
         try {
             orders.remove(index);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
     }
@@ -56,7 +56,7 @@ public class HandlerOfOrders implements Repository {
                 if (orders.get(i) == existing) orders.set(i, (Order) toReplace);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 

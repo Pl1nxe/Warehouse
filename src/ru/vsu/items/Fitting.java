@@ -18,12 +18,4 @@ public class Fitting extends Item {
                 ", length='" + length + '\'' +
                 ", price='" + price + '}';
     }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public Integer getThickness() {
-        return thickness;
-    }
 }

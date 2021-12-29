@@ -19,20 +19,4 @@ public class Beam extends Item {
                 ", material='" + material + '\'' +
                 ", price='" + price + '}';
     }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
 }

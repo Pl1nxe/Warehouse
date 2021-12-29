@@ -6,7 +6,6 @@ import ru.vsu.repository.Stored;
 import ru.vsu.services.builders.CustomerFromCLIBuilder;
 import ru.vsu.services.db.CustomerDBService;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class CustomersCLIAdapter implements Adapter {
@@ -38,11 +37,9 @@ public class CustomersCLIAdapter implements Adapter {
         }
     }
 
-    public void viewDataBase() throws SQLException {
+    public void viewDataBase() {
         db.viewDataBase();
     }
 
 
-
-//    Добавить слой разделения
 }

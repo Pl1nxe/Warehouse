@@ -1,6 +1,7 @@
 package ru.vsu.services.db;
 
 import ru.vsu.customers.Customer;
+import ru.vsu.customers.CustomerType;
 import ru.vsu.customers.LegalPerson;
 import ru.vsu.customers.PrivatePerson;
 import ru.vsu.database.DataBase;
@@ -11,10 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDBService implements DataBaseService {
+public class CustomerDBService implements DataBaseService<Customer> {
 
     private static CustomerDBService INSTANCE;
-    private static DataBase db;
+    private static DataBase db = DataBase.getInstance();
 
 
     public static CustomerDBService getInstance() {
@@ -26,11 +27,18 @@ public class CustomerDBService implements DataBaseService {
     }
 
     @Override
-    public void add(Stored obj) {
+    public void add(Customer customer) {
         try {
-            Customer customer = (Customer) obj;
-            db.executeSelect("INSERT INTO customer (itn, address) VALUES (" + customer.getITN() + ", `"
-                    + customer.getAddress() + "`);");
+            int type = CustomerType.getTypeFromClass(customer.getClass()).getNum();
+            switch (type) {
+                case 1 -> db.executeSelect("INSERT INTO customer (itn, type, name, address) VALUES (" +
+                        customer.getITN() + ", " + type + ", `" + customer.getName() + "`, `"
+                        + customer.getAddress() + "`);");
+                case 2 -> db.executeSelect("INSERT INTO customer (itn, type, name, address, birthdate) VALUES (" +
+                        customer.getITN() + ", " + type + ", `" + customer.getName() + "`, `"
+                        + customer.getAddress() + "`, `" + customer.getBirthDate() + "`);");
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -43,14 +51,14 @@ public class CustomerDBService implements DataBaseService {
     }
 
     @Override
-    public Stored getByID(Integer id) {
+    public Customer getByID(Integer id) {
         ResultSet rs = db.executeSelect("SELECT * FROM customer WHERE itn=" + id);
         return getByResultSet(rs);
     }
 
     @Override
-    public List<Stored> getAllFromDB() {
-        List<Stored> list = new ArrayList<>();
+    public List<Customer> getAllFromDB() {
+        List<Customer> list = new ArrayList<>();
         try {
             ResultSet rs = db.executeSelect("SELECT * FROM customer");
             while (rs.next())
@@ -63,25 +71,25 @@ public class CustomerDBService implements DataBaseService {
 
     @Override
     public void viewDataBase() {
-        List<Stored> list = getAllFromDB();
-        System.out.println("DatBase clientele:");
+        List<Customer> list = getAllFromDB();
+        System.out.println("DataBase clientele:");
         for (Stored customer : list) {
             System.out.println(customer.toString());
         }
     }
 
     @Override
-    public Stored getByResultSet(ResultSet rs) {
+    public Customer getByResultSet(ResultSet rs) {
         try {
-            return switch (rs.getString("type")) {
-                case "LegalPerson" -> new LegalPerson(
-                        rs.getString("nameOfOrganization"),
+            return switch (rs.getInt("type")) {
+                case 1 -> new LegalPerson(
+                        rs.getString("name"),
                         rs.getInt("itn"),
                         rs.getString("address")
                 );
-                case "PrivatePerson" -> new PrivatePerson(
-                        rs.getString("fullName"),
-                        rs.getString("birthDate"),
+                case 2 -> new PrivatePerson(
+                        rs.getString("name"),
+                        rs.getString("birthdate"),
                         rs.getInt("itn"),
                         rs.getString("address")
                 );

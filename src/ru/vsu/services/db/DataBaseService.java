@@ -1,11 +1,9 @@
 package ru.vsu.services.db;
 
-import ru.vsu.repository.Stored;
-
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface DataBaseService {
+public interface DataBaseService<Stored> {
 
     void add(Stored obj);
 
@@ -15,7 +13,7 @@ public interface DataBaseService {
 
     List<Stored> getAllFromDB();
 
-    void viewDataBase() ;
+    void viewDataBase();
 
     Stored getByResultSet(ResultSet rs);
 

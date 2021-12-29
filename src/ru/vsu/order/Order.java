@@ -56,4 +56,15 @@ public class Order implements Stored {
     public List<Item> getItems() {
         return new ArrayList<>(items);
     }
+
+    public Integer getCost() {
+        Integer cost = 0;
+        for (Item item : items)
+            cost += item.getPrice();
+        return cost;
+    }
+
+    public Integer getCustomerITN() {
+        return customer.getITN();
+    }
 }
