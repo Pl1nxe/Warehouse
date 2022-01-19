@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Смирных Павел
@@ -13,7 +14,29 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
-<body>
+<body class="container">
 <jsp:include page="patterns/navbar.jsp"/>
+<h1>List of warehouses</h1>
+<table class="table">
+    <tr>
+        <td><a class="btn btn-success" href="${pageContext.request.contextPath}/add?table=1">Add warehouse</a></td>
+        <td align="right"><a class="btn btn-secondary" href="${pageContext.request.contextPath}/items_in_storage.jsp">Items in storage</a></td>
+    </tr>
+</table>
+<table class="table">
+    <tr>
+        <th>Number</th>
+        <th>Address</th>
+        <th></th>
+    </tr>
+    <c:forEach items="${warehouse.getAllFromDB()}" var="i">
+        <tr>
+            <td>${i.getNumber()}</td>
+            <td>${i.getAddress()}</td>
+            <td align="right"><a class="btn btn-danger"
+                   href="${pageContext.request.contextPath}/delete?table=1&id=${i.getNumber()}">Delete</a></td>
+        </tr>
+    </c:forEach>
+</table>
 </body>
 </html>

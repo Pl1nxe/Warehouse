@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body class="container">
 <jsp:include page="patterns/navbar.jsp"/>
 <p>Клиент-северное приложение на тему "Складской учёт". Подготовил студент 3 курса ВГУ ФКН 6 группы Павел Смирных.</p>
 

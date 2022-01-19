@@ -13,26 +13,33 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
-<body>
+<body class="container">
 <jsp:include page="patterns/navbar.jsp"/>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div>
-    <table class="table">
+<h1>List of orders</h1>
+<table class="table">
+    <tr>
+        <td><a class="btn btn-success" href="${pageContext.request.contextPath}/add?table=3">Add order</a></td>
+        <td align="right"><a class="btn btn-secondary" href="${pageContext.request.contextPath}/ordered_items.jsp">Items in storage</a></td>
+    </tr>
+</table>
+<table class="table">
+    <tr>
+        <th>Reference Number</th>
+        <th>Customer ITN</th>
+        <th>Date</th>
+        <th></th>
+    </tr>
+    <c:forEach items="${ordering.getAllFromDB()}" var="i">
         <tr>
-            <th>Reference Number</th>
-            <th>Customer ITN</th>
-            <th>Date</th>
-            <th>Cost</th>
+            <td>${i.getReferenceNumber()}</td>
+            <td>${i.getCustomerITN()}</td>
+            <td>${i.getDate()}</td>
+            <td align="right"><a class="btn btn-danger"
+                                 href="${pageContext.request.contextPath}/delete?table=3&id=${i.getReferenceNumber()}">Delete</a>
+            </td>
         </tr>
-        <c:forEach items="${orders}" var="order">
-            <tr>
-                <td>${order.getReferenceNumber()}</td>
-                <td>${order.getCustomerITN()}</td>
-                <td>${order.getDate()}</td>
-                <td>${order.getCost()}</td>
-            </tr>
-        </c:forEach>
-    </table>
-</div>
+    </c:forEach>
+</table>
 </body>
 </html>

@@ -17,15 +17,6 @@
 <jsp:include page="patterns/navbar.jsp"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div>
-    <c:forEach items="${types}" var="type">
-        <a class="btn btn-warning mb-3"
-           href="${pageContext.request.contextPath}/add?type=${type.getTypeNumber()}">Add ${type.getItemClass().getSimpleName()}</a>
-    </c:forEach>
-
-    <c:if test="${type != null}">
-        <h3>Adding ${type.getItemClass().getSimpleName()}</h3>
-    </c:if>
-
     <c:if test="${form != null}">
         <form action="${pageContext.request.contextPath}/add" method="post">
             <%= (String) request.getAttribute("form") %>

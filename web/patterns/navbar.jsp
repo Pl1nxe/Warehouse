@@ -18,19 +18,19 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/">Menu</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/orders">Orders</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/customers">Customers</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/warehouses.jsp">Warehouses</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/items">Items</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/add">Add</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/orders.jsp">Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/delete">Delete</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/customers.jsp">Customers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/statistic.jsp">Statistic</a>
             </li>
         </ul>
     </div>
