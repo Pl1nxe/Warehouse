@@ -21,11 +21,13 @@
     <tr>
         <th>Warehouse number</th>
         <th>Item article</th>
+        <th>Count</th>
     </tr>
     <c:forEach items="${item_in_storage.getAllFromDB()}" var="i">
         <tr>
             <td>${i.getWarehouseNum()}</td>
             <td>${i.getItemArticle()}</td>
+            <td>${i.getCount()}</td>
         </tr>
     </c:forEach>
 </table>

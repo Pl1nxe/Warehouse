@@ -22,12 +22,16 @@
     <tr>
         <th>Order reference number</th>
         <th>Item article</th>
+        <th>Price</th>
+        <th>Count</th>
         <th></th>
     </tr>
     <c:forEach items="${ordered_item.getAllFromDB()}" var="i">
         <tr>
             <td>${i.getOrderRefNum()}</td>
             <td>${i.getItemArticle()}</td>
+            <td>${decimal_converter.toDecimalFormat(i.getPrice())}</td>
+            <td>${i.getCount()}</td>
             <td align="right"><a class="btn btn-danger"
                                  href="${pageContext.request.contextPath}/delete?table=5&id=${i.getItemArticle()}">Delete</a></td>
         </tr>

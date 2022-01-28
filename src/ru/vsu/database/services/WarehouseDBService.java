@@ -27,7 +27,7 @@ public class WarehouseDBService implements DataBaseService<Warehouse> {
     public void add(Warehouse warehouse) {
         try {
             db.executeUpdate("INSERT INTO warehouse (number, address) VALUES (" +
-                    warehouse.getNumber() + ", `" + warehouse.getAddress() + "`);");
+                    warehouse.getNumber() + ", \"" + warehouse.getAddress() + "\");");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -53,8 +53,16 @@ public class WarehouseDBService implements DataBaseService<Warehouse> {
 
     @Override
     public Warehouse getByID(Integer id) {
-        ResultSet rs = db.executeSelect("SELECT * FROM warehouse WHERE number=" + id);
-        return getByResultSet(rs);
+        try {
+            ResultSet rs = db.executeSelect("SELECT * FROM warehouse WHERE number=" + id);
+            rs.next();
+            Warehouse warehouse = getByResultSet(rs);
+            rs.close();
+            return warehouse;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -64,6 +72,7 @@ public class WarehouseDBService implements DataBaseService<Warehouse> {
             ResultSet rs = db.executeSelect("SELECT * FROM warehouse");
             while (rs.next())
                 list.add(getByResultSet(rs));
+            rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

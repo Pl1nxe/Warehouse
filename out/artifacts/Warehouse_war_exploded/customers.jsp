@@ -17,7 +17,7 @@
 <body class="container">
 <jsp:include page="patterns/navbar.jsp"/>
 <h1>List of customers</h1>
-<a class="btn btn-success" href="${pageContext.request.contextPath}/add?table=4">Add customer</a>
+<a class="btn btn-success" href="${pageContext.request.contextPath}/add?table=4&type=1">Add customer</a>
 <table class="table">
     <tr>
         <th>ITN</th>

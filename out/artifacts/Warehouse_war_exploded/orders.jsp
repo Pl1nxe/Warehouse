@@ -20,7 +20,7 @@
 <table class="table">
     <tr>
         <td><a class="btn btn-success" href="${pageContext.request.contextPath}/add?table=3">Add order</a></td>
-        <td align="right"><a class="btn btn-secondary" href="${pageContext.request.contextPath}/ordered_items.jsp">Items in storage</a></td>
+        <td align="right"><a class="btn btn-secondary" href="${pageContext.request.contextPath}/ordered_items.jsp">Ordered items</a></td>
     </tr>
 </table>
 <table class="table">
@@ -28,6 +28,7 @@
         <th>Reference Number</th>
         <th>Customer ITN</th>
         <th>Date</th>
+        <th>Warehouse Number</th>
         <th></th>
     </tr>
     <c:forEach items="${ordering.getAllFromDB()}" var="i">
@@ -35,6 +36,7 @@
             <td>${i.getReferenceNumber()}</td>
             <td>${i.getCustomerITN()}</td>
             <td>${i.getDate()}</td>
+            <td>${i.getWarehouseNum()}</td>
             <td align="right"><a class="btn btn-danger"
                                  href="${pageContext.request.contextPath}/delete?table=3&id=${i.getReferenceNumber()}">Delete</a>
             </td>

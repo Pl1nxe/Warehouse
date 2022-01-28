@@ -59,8 +59,8 @@ public class Order implements Stored {
         return new ArrayList<>(items);
     }
 
-    public Integer getCost() {
-        Integer cost = 0;
+    public double getCost() {
+        double cost = 0;
         for (Item item : items)
             cost += item.getPrice();
         return cost;

@@ -32,11 +32,11 @@ public class CustomerDBService implements DataBaseService<Customer> {
             int type = CustomerType.getTypeFromClass(customer.getClass()).getNum();
             switch (type) {
                 case 1 -> db.executeUpdate("INSERT INTO customer (itn, type, name, address) VALUES (" +
-                        customer.getITN() + ", " + type + ", `" + customer.getName() + "`, `"
-                        + customer.getAddress() + "`);");
+                        customer.getITN() + ", " + type + ", \"" + customer.getName() + "\", \""
+                        + customer.getAddress() + "\");");
                 case 2 -> db.executeUpdate("INSERT INTO customer (itn, type, name, address, birthdate) VALUES (" +
-                        customer.getITN() + ", " + type + ", `" + customer.getName() + "`, `"
-                        + customer.getAddress() + "`, `" + customer.getBirthDate() + "`);");
+                        customer.getITN() + ", " + type + ", \"" + customer.getName() + "\", \""
+                        + customer.getAddress() + "\", \"" + customer.getBirthDate() + "\");");
             }
 
         } catch (Exception e) {
@@ -52,8 +52,16 @@ public class CustomerDBService implements DataBaseService<Customer> {
 
     @Override
     public Customer getByID(Integer id) {
-        ResultSet rs = db.executeSelect("SELECT * FROM customer WHERE itn=" + id);
-        return getByResultSet(rs);
+        try {
+            ResultSet rs = db.executeSelect("SELECT * FROM customer WHERE itn=" + id);
+            rs.next();
+            Customer customer = getByResultSet(rs);
+            rs.close();
+            return customer;
+        }catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -63,6 +71,7 @@ public class CustomerDBService implements DataBaseService<Customer> {
             ResultSet rs = db.executeSelect("SELECT * FROM customer");
             while (rs.next())
                 list.add(getByResultSet(rs));
+            rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

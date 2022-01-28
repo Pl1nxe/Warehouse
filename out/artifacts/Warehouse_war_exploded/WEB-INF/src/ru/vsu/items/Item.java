@@ -1,5 +1,6 @@
 package ru.vsu.items;
 
+import ru.vsu.database.services.PriceListDBService;
 import ru.vsu.repository.Stored;
 
 import java.util.Objects;
@@ -8,7 +9,6 @@ public abstract class Item implements Stored {
 
     protected String title;
     protected  String manufacturer;
-    protected Integer price;
     protected Integer articleNum;
     protected Integer length;
     protected Integer width;
@@ -22,7 +22,6 @@ public abstract class Item implements Stored {
     public Item(Integer articleNum,
                 String title,
                 String manufacturer,
-                Integer price,
                 Integer length,
                 Integer width,
                 Integer height,
@@ -32,7 +31,6 @@ public abstract class Item implements Stored {
                 Integer outerDiameter) {
         this.title = title;
         this.manufacturer = manufacturer;
-        this.price = price;
         this.articleNum = articleNum;
         this.length = length;
         this.width = width;
@@ -69,8 +67,8 @@ public abstract class Item implements Stored {
         return manufacturer;
     }
 
-    public Integer getPrice() {
-        return price;
+    public double getPrice() {
+        return PriceListDBService.getInstance().getLastPrice(articleNum);
     }
 
     public Integer getArticleNum() {

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderedItemDBService implements SideTable<OrderedItem> {
+public class OrderedItemDBService {
 
     private static OrderedItemDBService INSTANCE;
     private static ConnectionManager db;
@@ -22,28 +22,24 @@ public class OrderedItemDBService implements SideTable<OrderedItem> {
         return INSTANCE;
     }
 
-
-    @Override
-    public void add(Integer orderRefNum, Integer itemArticle) {
+    public void add(OrderedItem orderedItem) {
         try {
-            db.executeUpdate("INSERT INTO ordered_item (order_ref_num, item_article) VALUES (" +
-                    orderRefNum + ", " + itemArticle + ");");
+            db.executeUpdate("INSERT INTO ordered_item (order_ref_num, item_article, price, count) VALUES (" +
+                    orderedItem.getOrderRefNum() + ", " + orderedItem.getItemArticle() + ", "
+                    + orderedItem.getPrice() + ", " + orderedItem.getCount() + ");");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    @Override
     public void remove(Integer itemArticle) {
         db.executeUpdate("DELETE FROM ordered_item WHERE item_article=" + itemArticle + ";");
     }
 
-    @Override
     public void removeAll(Integer orderRefNum) {
         db.executeUpdate("DELETE FROM ordered_item WHERE order_ref_num=" + orderRefNum + ";");
     }
 
-    @Override
     public List<OrderedItem> getAllFromDB() {
         List<OrderedItem> orderedItems = new ArrayList<>();
         try {
@@ -51,8 +47,11 @@ public class OrderedItemDBService implements SideTable<OrderedItem> {
             while (rs.next())
                 orderedItems.add(new OrderedItem(
                         rs.getInt("order_ref_num"),
-                        rs.getInt("item_article")
+                        rs.getInt("item_article"),
+                        rs.getDouble("price"),
+                        rs.getInt("count")
                 ));
+            rs.close();
             return orderedItems;
         } catch (SQLException e) {
             System.out.println(e.getMessage() + " OrderedItemDBService.getAllFromDB()");
@@ -60,7 +59,6 @@ public class OrderedItemDBService implements SideTable<OrderedItem> {
         }
     }
 
-    @Override
     public int getCount() {
         return getAllFromDB().size();
     }

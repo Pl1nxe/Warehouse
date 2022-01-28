@@ -1,6 +1,7 @@
 package ru.vsu.database;
 
 import java.sql.*;
+import java.util.Properties;
 
 public class ConnectionManager {
     private static ConnectionManager INSTANCE;
@@ -24,12 +25,31 @@ public class ConnectionManager {
         return INSTANCE;
     }
 
-    public Connection getConnection() {
+    public Connection reconnect() {
+        try {
+            connection.close();
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+            statement = createStatement(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return connection;
+    }
+
+    public Statement createStatement(Connection connection) {
+        try {
+            return connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void connect() {
         try {
+            Properties properties = new Properties();
+            properties.setProperty("autoReconnect", "true");
+            properties.setProperty("connectTimeout", "50000");
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
             statement = connection.createStatement();
         } catch (SQLException sqlException) {

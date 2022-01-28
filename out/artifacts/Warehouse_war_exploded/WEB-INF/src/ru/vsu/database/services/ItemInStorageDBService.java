@@ -52,8 +52,10 @@ public class ItemInStorageDBService implements SideTable<ItemInStorage> {
             while (rs.next())
                 itemsInStorage.add(new ItemInStorage(
                         rs.getInt("warehouse_num"),
-                        rs.getInt("item_article")
+                        rs.getInt("item_article"),
+                        rs.getInt("count")
                 ));
+            rs.close();
             return itemsInStorage;
         } catch (SQLException e) {
             System.out.println(e.getMessage() + " ItemInStorageDBService.getAllFromDB()");

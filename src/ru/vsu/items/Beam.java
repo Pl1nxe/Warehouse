@@ -2,9 +2,9 @@ package ru.vsu.items;
 
 public class Beam extends Item {
 
-    public Beam(Integer articleNum, String title, String manufacturer, Integer price, Integer length, Integer width,
+    public Beam(Integer articleNum, String title, String manufacturer, Integer length, Integer width,
                 Integer height, String material) {
-        super(articleNum, title, manufacturer, price, length, width, height, material,
+        super(articleNum, title, manufacturer, length, width, height, material,
                 null, null, null);
     }
 
@@ -16,7 +16,6 @@ public class Beam extends Item {
                 ", length='" + length + '\'' +
                 ", width='" + width + '\'' +
                 ", height='" + height + '\'' +
-                ", material='" + material + '\'' +
-                ", price='" + price + '}';
+                ", material='" + material + "'}";
     }
 }

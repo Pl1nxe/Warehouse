@@ -33,8 +33,8 @@
         <tr>
             <td>${i.getNumber()}</td>
             <td>${i.getAddress()}</td>
-            <td align="right"><a class="btn btn-danger"
-                   href="${pageContext.request.contextPath}/delete?table=1&id=${i.getNumber()}">Delete</a></td>
+            <td align="right"><a class="btn btn-warning"
+                   href="${pageContext.request.contextPath}/warehouse?number=${i.getNumber()}">More</a></td>
         </tr>
     </c:forEach>
 </table>

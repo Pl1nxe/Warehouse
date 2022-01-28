@@ -16,7 +16,7 @@
 </head>
 <body class="container">
 <jsp:include page="patterns/navbar.jsp"/>
-<h1>List of orders</h1>
+<h1>List of items</h1>
 <table class="table">
     <tr>
         <th></th>
@@ -27,9 +27,11 @@
         <th></th>
     </tr>
     <tr>
-        <td><a class="btn btn-success" href="${pageContext.request.contextPath}/add?table=2">Add item</a></td>
-        <td><a class="btn btn-secondary" href="${pageContext.request.contextPath}/items_in_storage.jsp">Items in storage</a></td>
-        <td><a class="btn btn-secondary" href="${pageContext.request.contextPath}/ordered_items.jsp">Ordered items</a></td>
+        <td><a class="btn btn-success" href="${pageContext.request.contextPath}/add?table=2&type=1">Add item</a></td>
+        <td><a class="btn btn-secondary" href="${pageContext.request.contextPath}/items_in_storage.jsp">Items in
+            storage</a></td>
+        <td><a class="btn btn-secondary" href="${pageContext.request.contextPath}/ordered_items.jsp">Ordered items</a>
+        </td>
         <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/items?type=1">Beam</a></td>
         <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/items?type=2">Fitting</a></td>
         <td><a class="btn btn-primary" href="${pageContext.request.contextPath}/items?type=3">Pipe</a></td>
@@ -56,7 +58,7 @@
                 <td>${i.getArticleNum()}</td>
                 <td>${i.getTitle()}</td>
                 <td>${i.getManufacturer()}</td>
-                <td>${i.getPrice()}</td>
+                <td>${decimal_converter.toDecimalFormat(i.getPrice())}</td>
                 <td>${i.getLength()}</td>
                 <td>${i.getWidth()}</td>
                 <td>${i.getHeight()}</td>
@@ -83,19 +85,19 @@
             <th></th>
         </tr>
         <c:forEach items="${item.getItemsByType(1)}" var="i">
-        <tr>
-            <td>${i.getArticleNum()}</td>
-            <td>${i.getTitle()}</td>
-            <td>${i.getManufacturer()}</td>
-            <td>${i.getPrice()}</td>
-            <td>${i.getLength()}</td>
-            <td>${i.getWidth()}</td>
-            <td>${i.getHeight()}</td>
-            <td>${i.getMaterial()}</td>
-            <td align="right"><a class="btn btn-danger"
-                                 href="${pageContext.request.contextPath}/delete?table=2&id=${i.getArticleNum()}">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>${i.getArticleNum()}</td>
+                <td>${i.getTitle()}</td>
+                <td>${i.getManufacturer()}</td>
+                <td>${decimal_converter.toDecimalFormat(i.getPrice())}</td>
+                <td>${i.getLength()}</td>
+                <td>${i.getWidth()}</td>
+                <td>${i.getHeight()}</td>
+                <td>${i.getMaterial()}</td>
+                <td align="right"><a class="btn btn-danger"
+                                     href="${pageContext.request.contextPath}/delete?table=2&id=${i.getArticleNum()}">Delete</a>
+                </td>
+            </tr>
         </c:forEach>
     </c:if>
     <c:if test="${type == 2}">
@@ -113,7 +115,7 @@
                 <td>${i.getArticleNum()}</td>
                 <td>${i.getTitle()}</td>
                 <td>${i.getManufacturer()}</td>
-                <td>${i.getPrice()}</td>
+                <td>${decimal_converter.toDecimalFormat(i.getPrice())}</td>
                 <td>${i.getLength()}</td>
                 <td>${i.getThickness()}</td>
                 <td align="right"><a class="btn btn-danger"
@@ -138,7 +140,7 @@
                 <td>${i.getArticleNum()}</td>
                 <td>${i.getTitle()}</td>
                 <td>${i.getManufacturer()}</td>
-                <td>${i.getPrice()}</td>
+                <td>${decimal_converter.toDecimalFormat(i.getPrice())}</td>
                 <td>${i.getMaterial()}</td>
                 <td>${i.getInnerDiameter()}</td>
                 <td>${i.getOuterDiameter()}</td>

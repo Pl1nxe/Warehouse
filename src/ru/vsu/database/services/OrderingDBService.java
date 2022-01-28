@@ -25,9 +25,9 @@ public class OrderingDBService implements DataBaseService<Ordering> {
     @Override
     public void add(Ordering order) {
         try {
-            db.executeUpdate("INSERT INTO ordering (reference_number, customer_itn, date) VALUES (" +
-                    order.getReferenceNumber() + ", " + order.getCustomerITN() + ", `" + order.getDate() + "`);");
-
+            db.executeUpdate("INSERT INTO ordering (reference_number, type, customer_itn, date, warehouse_num) VALUES (" +
+                    order.getReferenceNumber() + ", " + order.getType() + ", " + order.getCustomerITN() + ", \"" +
+                    order.getDate() + "\", " + order.getWarehouseNum() + ");");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -41,8 +41,16 @@ public class OrderingDBService implements DataBaseService<Ordering> {
 
     @Override
     public Ordering getByID(Integer id) {
-        ResultSet rs = db.executeSelect("SELECT * FROM ordering WHERE reference_number=" + id);
-        return getByResultSet(rs);
+        try {
+            ResultSet rs = db.executeSelect("SELECT * FROM ordering WHERE reference_number=" + id);
+            rs.next();
+            Ordering ordering = getByResultSet(rs);
+            rs.close();
+            return ordering;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -52,6 +60,7 @@ public class OrderingDBService implements DataBaseService<Ordering> {
             ResultSet rs = db.executeSelect("SELECT * FROM ordering");
             while (rs.next())
                 list.add(getByResultSet(rs));
+            rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -72,8 +81,10 @@ public class OrderingDBService implements DataBaseService<Ordering> {
         try {
             return new Ordering(
                     rs.getInt("reference_number"),
+                    rs.getInt("type"),
                     rs.getInt("customer_itn"),
-                    rs.getString("date")
+                    rs.getString("date"),
+                    rs.getInt("warehouse_num")
             );
         } catch (SQLException e) {
             System.out.println(e.getMessage());

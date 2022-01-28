@@ -4,11 +4,12 @@ import ru.vsu.customers.Customer;
 import ru.vsu.customers.CustomerType;
 import ru.vsu.customers.LegalPerson;
 import ru.vsu.customers.PrivatePerson;
+import ru.vsu.database.objects.OrderedItem;
 import ru.vsu.database.services.*;
 import ru.vsu.items.*;
 import ru.vsu.order.Ordering;
 import ru.vsu.repository.Warehouse;
-import ru.vsu.tools.*;
+import ru.vsu.tools.builders.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,15 +30,26 @@ public class AddServlet extends HttpServlet {
         switch (table) {
             case 1 -> req.setAttribute("form", WarehouseHtmlFormBuilder.getForm());
             case 2 -> {
-                int type;
-                type = Integer.parseInt(req.getParameter("type"));
+                String strType = req.getParameter("type");
+                if (strType == null)
+                    strType = "1";
+                int type = Integer.parseInt(strType);
                 req.setAttribute("type", type);
                 req.setAttribute("form", ItemHtmlFormBuilder.getForm(ItemType.getTypeFromTypeNumber(type)));
             }
-            case 3 -> req.setAttribute("form", OrderingHtmlFormBuilder.getForm());
+            case 3 -> {
+                String strType = req.getParameter("type");
+                if (strType == null)
+                    strType = "1";
+                int type = Integer.parseInt(strType);
+                req.setAttribute("type", type);
+                req.setAttribute("form", OrderingHtmlFormBuilder.getForm(type));
+            }
             case 4 -> {
-                int type;
-                type = Integer.parseInt(req.getParameter("type"));
+                String strType = req.getParameter("type");
+                if (strType == null)
+                    strType = "1";
+                int type = Integer.parseInt(strType);
                 req.setAttribute("type", type);
                 req.setAttribute("form", CustomerHtmlFormBuilder.getForm(CustomerType.getTypeFromTypeNumber(type)));
             }
@@ -60,7 +72,7 @@ public class AddServlet extends HttpServlet {
                         req.getParameter("address")
                 ));
                 case 2 -> {
-                    Integer warehouseNumber = Integer.parseInt(req.getParameter("warehouse_number"));
+                    Integer warehouseNumber = Integer.parseInt(req.getParameter("number"));
                     if (WarehouseDBService.getInstance().getByID(warehouseNumber) != null) {
                         int type = Integer.parseInt(req.getParameter("type"));
                         Item item = itemCreator(req, type);
@@ -72,23 +84,49 @@ public class AddServlet extends HttpServlet {
                     }
                 }
                 case 3 -> {
-                    Integer customerITN = Integer.parseInt(req.getParameter("customer_itn"));
-                    if (CustomerDBService.getInstance().getByID(customerITN) != null) {
-                        OrderingDBService.getInstance().add(new Ordering(
-                                Integer.parseInt(req.getParameter("reference_number")),
-                                customerITN,
-                                req.getParameter("date")
-                        ));
+                    Integer warehouseNum = Integer.parseInt(req.getParameter("warehouse_num"));
+                    if (WarehouseDBService.getInstance().getByID(warehouseNum) != null) {
+                        int type = Integer.parseInt(req.getParameter("type"));
+                        if (type == 0)
+                            type = 1;
+                        if (type == 1) {
+                            OrderingDBService.getInstance().add(new Ordering(
+                                    Integer.parseInt(req.getParameter("reference_number")),
+                                    type,
+                                    null,
+                                    req.getParameter("date"),
+                                    Integer.parseInt(req.getParameter("warehouse_num"))
+                            ));
+                        } else if (type == 2) {
+                            Integer customerITN = Integer.parseInt(req.getParameter("itn"));
+                            if (CustomerDBService.getInstance().getByID(customerITN) != null) {
+                                OrderingDBService.getInstance().add(new Ordering(
+                                        Integer.parseInt(req.getParameter("reference_number")),
+                                        type,
+                                        customerITN,
+                                        req.getParameter("date"),
+                                        Integer.parseInt(req.getParameter("warehouse_num"))
+                                ));
+                            }
+                        }
                     }
                 }
                 case 4 -> {
                     int type = Integer.parseInt(req.getParameter("type"));
                     CustomerDBService.getInstance().add(customerCreator(req, type));
                 }
-                case 5 -> OrderedItemDBService.getInstance().add(
-                        Integer.parseInt(req.getParameter("order_ref_num")),
-                        Integer.parseInt(req.getParameter("item_article"))
-                );
+                case 5 -> {
+                    Integer orderRefNum = Integer.parseInt(req.getParameter("order_ref_num"));
+                    Integer itemArticle = Integer.parseInt(req.getParameter("item_article"));
+                    if (OrderingDBService.getInstance().getByID(orderRefNum) != null &&
+                            ItemDBService.getInstance().getByID(itemArticle) != null)
+                        OrderedItemDBService.getInstance().add(new OrderedItem(
+                                orderRefNum,
+                                itemArticle,
+                                Double.parseDouble(req.getParameter("price")),
+                                Integer.parseInt(req.getParameter("count"))
+                        ));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,7 +157,7 @@ public class AddServlet extends HttpServlet {
                     Integer.parseInt(req.getParameter("article")),
                     req.getParameter("title"),
                     req.getParameter("manufacturer"),
-                    Integer.parseInt(req.getParameter("price")),
+//                    Integer.parseInt(req.getParameter("price")),
                     Integer.parseInt(req.getParameter("length")),
                     Integer.parseInt(req.getParameter("width")),
                     Integer.parseInt(req.getParameter("height")),
@@ -129,7 +167,7 @@ public class AddServlet extends HttpServlet {
                     Integer.parseInt(req.getParameter("article")),
                     req.getParameter("title"),
                     req.getParameter("manufacturer"),
-                    Integer.parseInt(req.getParameter("price")),
+//                    Integer.parseInt(req.getParameter("price")),
                     Integer.parseInt(req.getParameter("length")),
                     Integer.parseInt(req.getParameter("thickness"))
             );
@@ -137,7 +175,7 @@ public class AddServlet extends HttpServlet {
                     Integer.parseInt(req.getParameter("article")),
                     req.getParameter("title"),
                     req.getParameter("manufacturer"),
-                    Integer.parseInt(req.getParameter("price")),
+//                    Integer.parseInt(req.getParameter("price")),
                     Integer.parseInt(req.getParameter("inner_diameter")),
                     Integer.parseInt(req.getParameter("outer_diameter")),
                     req.getParameter("material")

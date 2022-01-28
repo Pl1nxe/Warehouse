@@ -29,17 +29,17 @@ public class ItemDBService implements DataBaseService<Item> {
             int type = ItemType.getTypeFromClass(item.getClass()).getNumber();
             switch (type) {
                 case 1 -> db.executeUpdate("INSERT INTO item (article, title, manufacturer, price, length, width, " +
-                        "height, material) VALUES (" + item.getArticleNum() + ", `" + item.getTitle() +
-                        "`, `" + item.getManufacturer() + "`, " + item.getPrice() + ", " + item.getLength() +
-                        ", " + item.getWidth() + ", " + item.getHeight() + ", `" + item.getMaterial() + "`);");
+                        "height, material) VALUES (" + item.getArticleNum() + ", \"" + item.getTitle() +
+                        "\", \"" + item.getManufacturer() + "\", " + item.getPrice() + ", " + item.getLength() +
+                        ", " + item.getWidth() + ", " + item.getHeight() + ", \"" + item.getMaterial() + "\");");
                 case 2 -> db.executeUpdate("INSERT INTO item (article, title, manufacturer, price, length, " +
-                        "thickness) VALUES (" + item.getArticleNum() + ", `" + item.getTitle() +
-                        "`, `" + item.getManufacturer() + "`, " + item.getPrice() + ", " + item.getLength() +
+                        "thickness) VALUES (" + item.getArticleNum() + ", \"" + item.getTitle() +
+                        "\", \"" + item.getManufacturer() + "\", " + item.getPrice() + ", " + item.getLength() +
                         ", " + item.getThickness() + ");");
                 case 3 -> db.executeUpdate("INSERT INTO item (article, title, manufacturer, price, " +
-                        "inner_diameter, outer_diameter, material) VALUES (" + item.getArticleNum() + ", `" +
-                        item.getTitle() + "`, `" + item.getManufacturer() + "`, " + item.getPrice() + ", " +
-                        item.getInnerDiameter() + ", " + item.getOuterDiameter() + ", `" + item.getMaterial() + "`);");
+                        "inner_diameter, outer_diameter, material) VALUES (" + item.getArticleNum() + ", \"" +
+                        item.getTitle() + "\", \"" + item.getManufacturer() + "\", " + item.getPrice() + ", " +
+                        item.getInnerDiameter() + ", " + item.getOuterDiameter() + ", \"" + item.getMaterial() + "\");");
             }
 
         } catch (Exception e) {
@@ -51,14 +51,48 @@ public class ItemDBService implements DataBaseService<Item> {
     @Override
     public void removeByID(Integer id) {
         db.executeUpdate("DELETE FROM item WHERE article=" + id + ";");
-//        ItemInStorageDBService.getInstance().remove(id);
-//        OrderedItemDBService.getInstance().remove(id);
     }
 
     @Override
     public Item getByID(Integer id) {
-        ResultSet rs = db.executeSelect("SELECT * FROM item WHERE article=" + id);
-        return getByResultSet(rs);
+        try {
+            ResultSet rs = db.executeSelect("SELECT * FROM item WHERE article=" + id);
+            rs.next();
+            Item item = getByResultSet(rs);
+            rs.close();
+            return item;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Item> getByWarehouseNum(Integer warehouseNum) {
+        List<Item> items = new ArrayList<>();
+        try {
+            ResultSet rs = db.executeSelect("SELECT * FROM item WHERE article IN " +
+                    "(SELECT item_article FROM item_in_storage WHERE warehouse_num=" + warehouseNum + ")");
+            while (rs.next())
+                items.add(getByResultSet(rs));
+            rs.close();
+            return items;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + " ItemInStorageDBService.getAllFromDB()");
+            return null;
+        }
+    }
+
+    public int getType(Integer article) {
+        try {
+            ResultSet rs = db.executeSelect("SELECT type FROM item WHERE article=" + article);
+            rs.next();
+            int type = rs.getInt("type");
+            rs.close();
+            return type;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     @Override
@@ -68,6 +102,7 @@ public class ItemDBService implements DataBaseService<Item> {
             ResultSet rs = db.executeSelect("SELECT * FROM item");
             while (rs.next())
                 list.add(getByResultSet(rs));
+            rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -91,7 +126,7 @@ public class ItemDBService implements DataBaseService<Item> {
                         rs.getInt("article"),
                         rs.getString("title"),
                         rs.getString("manufacturer"),
-                        rs.getInt("price"),
+//                        rs.getInt("price"),
                         rs.getInt("length"),
                         rs.getInt("width"),
                         rs.getInt("height"),
@@ -101,7 +136,7 @@ public class ItemDBService implements DataBaseService<Item> {
                         rs.getInt("article"),
                         rs.getString("title"),
                         rs.getString("manufacturer"),
-                        rs.getInt("price"),
+//                        rs.getInt("price"),
                         rs.getInt("length"),
                         rs.getInt("thickness")
                 );
@@ -109,7 +144,7 @@ public class ItemDBService implements DataBaseService<Item> {
                         rs.getInt("article"),
                         rs.getString("title"),
                         rs.getString("manufacturer"),
-                        rs.getInt("price"),
+//                        rs.getInt("price"),
                         rs.getInt("inner_diameter"),
                         rs.getInt("outer_diameter"),
                         rs.getString("material")

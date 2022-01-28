@@ -2,9 +2,9 @@ package ru.vsu.items;
 
 public class Pipe extends Item {
 
-    public Pipe(Integer articleNum, String title, String manufacturer, Integer price, Integer innerDiameter,
+    public Pipe(Integer articleNum, String title, String manufacturer, Integer innerDiameter,
                 Integer outerDiameter, String material) {
-        super(articleNum, title, manufacturer, price, null, null, null, material, null,
+        super(articleNum, title, manufacturer, null, null, null, material, null,
               innerDiameter, outerDiameter);
     }
 
@@ -12,7 +12,6 @@ public class Pipe extends Item {
     public String toString() {
         return "Pipe{" +
                 "title='" + title + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", price='" + price + '}';
+                ", manufacturer='" + manufacturer + "'}";
     }
 }

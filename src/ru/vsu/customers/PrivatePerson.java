@@ -19,7 +19,4 @@ public class PrivatePerson extends Customer {
         return name;
     }
 
-    public String getBirthDate() {
-        return birthDate;
-    }
 }

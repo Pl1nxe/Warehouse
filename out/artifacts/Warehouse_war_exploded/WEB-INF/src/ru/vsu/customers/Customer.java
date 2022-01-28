@@ -52,6 +52,7 @@ public abstract class Customer implements Stored {
     }
 
     public String getBirthDate() {
+//        return DateConverter.getInstance().fromString(birthDate);
         return birthDate;
     }
 }
